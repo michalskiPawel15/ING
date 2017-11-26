@@ -1,0 +1,20 @@
+{
+  "name": "weather_app",
+  "version": "1.0.0",
+  "description": "Weather app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michalskiPawel15/WeatherApp.git"
+  },
+  "author": "Michalski Pawel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michalskiPawel15/WeatherApp/issues"
+  },
+  "homepage": "https://github.com/michalskiPawel15/WeatherApp#readme"
+}

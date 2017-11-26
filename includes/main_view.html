@@ -1,0 +1,15 @@
+<h1>Pogoda</h1>
+<table>
+	<tr>
+		<th>Miasto</th>
+		<th>Sprawdź</th>
+		<th>Pogoda</th>
+	</tr>
+	<tr ng-repeat="city in cities">
+		<td>{{city.name}}</td>
+		<td>
+			<input type="checkbox" ng-model="checkCity" ng-change="checkFunc(checkCity,city.name)">
+		</td>
+		<td>Pogoda dla:{{cityName}}</td>
+	</tr>
+</table>

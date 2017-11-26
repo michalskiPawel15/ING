@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="application/javascript"></script>
+		<script type="application/javascript" src="modules/main_module.js"></script>
+		<script type="application/javascript" src="modules/ajax_module.js"></script>
+		<link rel="stylesheet" href="style.css">
+		<title>
+			Weather-App
+		</title>
+	</head>
+	<body>
+		<div ng-app="weatherApp" ng-controller="appCtrl">
+			<div ng-include="'includes/main_view.html'"></div>
+		</div>
+	</body>
+</html>
