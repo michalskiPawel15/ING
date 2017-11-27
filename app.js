@@ -27,15 +27,19 @@ var app=function(req,res){
 	};
 	fs.readFile(fileName,function(err,data){
 		if(err){
-			res.writeHead(404,{
-				'Content-Type':'text/html'
+			res.writeHead(
+				404,
+				{
+					'Content-Type':'text/html'
 				}
 			);
 			return res.end('404 File not found!');
 		}
 		else{
-			res.writeHead(200,{
-				'Content-Type':mime[ext]
+			res.writeHead(
+				200,
+				{
+					'Content-Type':mime[ext]
 				}
 			);
 			res.write(data);
