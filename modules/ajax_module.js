@@ -56,7 +56,7 @@ var appCtrl=function($scope,$http){
 	};
 	$scope.checkCity=function(city){
 		if(city.selected){
-			$scope.allCheck=true;
+			// $scope.allCheck=true;
 			getWeather(city);
 			city.show=true;
 		}
