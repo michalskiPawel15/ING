@@ -11,3 +11,4 @@ https://github.com/michalskiPawel15/WeatherApp.git
 ```
 npm start
 ```
+4.This command will run the application at http://localhost:8080
