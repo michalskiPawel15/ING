@@ -27,7 +27,7 @@ var appCtrl=function($scope,$http){
 		var weatherUrl='http://api.openweathermap.org/data/2.5/weather?id='+city.id+'&units=metric&lang=pl&APPID='+appId;
 		$http.get(weatherUrl).then(function(response){
 			//Success response
-			//debug(response,'---response.data---');
+			// debug(response,'---response.data---');
 			city.temp=response.data.main.temp;
 			city.desc=response.data.weather[0].description;
 			city.ico='http://openweathermap.org/img/w/'+response.data.weather[0].icon+'.png';
@@ -36,35 +36,32 @@ var appCtrl=function($scope,$http){
 			debug(response,'---Error---');
 		});
 	};
-	$scope.allCheck=false;
-	$scope.checkValue=false;
-	$scope.checkAll=function(allVal){
-		if(allVal===true){
-			$scope.checkValue=true;
-			debug($scope.checkValue,'---$scope.checkValue---');
-			var i;
-			var cities=$scope.cities;
-			var city;
-			for(i=0;i<$scope.cities.length;i++){
-				city=$scope.cities[i];
+	$scope.checkAll=function(){
+		if($scope.allCheck){
+			$scope.allCheck=true;
+		}
+		else{
+			$scope.allCheck=false;
+		}
+		angular.forEach($scope.cities,function(city){
+			city.selected=$scope.allCheck;
+			if($scope.allCheck){
 				getWeather(city);
 				city.show=true;
 			}
-		}
-		else{
-			$scope.checkValue=false;
-			for(i=0;i<$scope.cities.length;i++){
-				city=$scope.cities[i];
+			else{
 				city.show=false;
 			}
-		}
+		});
 	};
-	$scope.checkCity=function(checkVal,city){
-		if(checkVal===true){
+	$scope.checkCity=function(city){
+		if(city.selected){
+			$scope.allCheck=true;
 			getWeather(city);
 			city.show=true;
 		}
 		else{
+			$scope.allCheck=false;
 			city.show=false;
 		}
 	};

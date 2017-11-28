@@ -1,31 +1,33 @@
-<h1>Pogoda</h1>
-<table>
-	<tr>
-		<th>
-			<p>Miasto</p>
-		</th>
-		<th>
-			<p>Sprawdź</p>
-			<p>(wszystkie:<input type="checkbox" ng-model="allCheck" ng-click="checkAll(allCheck)">)</p>
-		</th>
-		<th>
-			<p>Pogoda</p>
-		</th>
-	</tr>
-	<tr ng-repeat="city in cities">
-		<td>
-			<p>{{city.name}}</p>
-		</td>
-		<td>
-			{{checkValue}}
-			<input type="checkbox" ng-model="checkValue" ng-change="checkCity(checkValue,city)">
-		</td>
-		<td>
-			<p>Temperatura:<span ng-show="city.show" class="w_info">{{city.temp}}</span><span ng-show="!city.show" class="w_info">(sprawdź)</span>ºC</p>
-			<div>
-				<p>Stan:<span ng-show="city.show" class="w_info">{{city.desc}}</span><span ng-show="!city.show" class="w_info">(sprawdź)</span></p>
-				<img ng-src="{{city.show?city.ico:'empty.png'}}" class="w_info_img">
-			</div>
-		</td>
-	</tr>
-</table>
+<div ng-controller="appCtrl">
+	<h1>Pogoda</h1>
+	<table>
+		<tr>
+			<th>
+				<p>Miasto</p>
+			</th>
+			<th>
+				<p>Sprawdź</p>
+				<p>(wszystkie:{{allCheck}}<input type="checkbox" ng-model="allCheck" ng-change="checkAll()">)</p>
+			</th>
+			<th>
+				<p>Pogoda</p>
+			</th>
+		</tr>
+		<tr ng-repeat="city in cities">
+			<td>
+				<p>{{city.name}}</p>
+			</td>
+			<td>
+				{{city.selected}}
+				<input type="checkbox" ng-model="city.selected" ng-change="checkCity(city)">
+			</td>
+			<td>
+				<p>Temperatura:<span ng-show="city.show" class="w_info">{{city.temp}}</span><span ng-show="!city.show" class="w_info">(sprawdź)</span>ºC</p>
+				<div>
+					<p>Stan:<span ng-show="city.show" class="w_info">{{city.desc}}</span><span ng-show="!city.show" class="w_info">(sprawdź)</span></p>
+					<img ng-src="{{city.show?city.ico:'empty.png'}}" class="w_info_img">
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
