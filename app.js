@@ -47,5 +47,7 @@ var app=function(req,res){
 		}
 	});
 };
-http.createServer(app).listen(8080);
-console.log('Server running:http://localhost:8080/');
+var server=http.createServer(app);
+server.listen(8080,function(){
+	console.log('Server running:http://localhost:8080/');
+});
