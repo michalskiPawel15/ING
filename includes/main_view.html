@@ -18,6 +18,12 @@
 					<p>Sprawdź</p>
 					<p>(wszystkie:[<input type="checkbox" ng-model="allCheck" ng-change="checkAll()">])</p>
 				</div>
+				<div>
+					<p>Sortuj:
+						<select ng-options="opt.name for opt in select.opts track by opt.id" ng-model="select.opt" ng-change="checkSelect()"></select>
+					</p>
+					<p ng-show="notSelected" ng-click="hideInfo()" class="sort_info">Nie wybrano miasta</p>
+				</div>
 			</th>
 			<th>
 				<div>

@@ -43,3 +43,7 @@ table tr:nth-child(even){
 .center_txt p{
 	text-align:center;
 }
+.sort_info{
+	color:#ff0000;
+	cursor:pointer;
+}

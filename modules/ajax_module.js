@@ -7,6 +7,18 @@ var appCtrl=function($scope,$http){
 		console.log(obj);
 	};
 	/*
+		Fisher-Yates shuffle
+	*/
+	$scope.shuffle=function(arr){
+		var arrNum=(arr.length-1),i,randNum,tmp;
+		for(i=arrNum;i>0;i--){
+			randNum=Math.floor(Math.random()*i);
+			tmp=arr[randNum];
+			arr[randNum]=arr[i];
+			arr[i]=tmp;
+		}
+	};
+	/*
 		Get cities
 	*/
 	var citiesUrl='cities.json';
@@ -20,6 +32,7 @@ var appCtrl=function($scope,$http){
 			city.refresh=false;
 			city.refresh_time=0;
 		});
+		$scope.shuffle($scope.cities);
 	},function(response){
 		//Error response
 		debug(response,'---Error---');
@@ -32,7 +45,7 @@ var appCtrl=function($scope,$http){
 		var weatherUrl='http://api.openweathermap.org/data/2.5/weather?id='+city.id+'&units=metric&lang=pl&APPID='+appId;
 		$http.get(weatherUrl).then(function(response){
 			//Success response
-			//debug(response,'---response.data---');
+			debug(response,'---response.data---');
 			city.temp=response.data.main.temp;
 			city.desc=response.data.weather[0].description;
 			city.ico='http://openweathermap.org/img/w/'+response.data.weather[0].icon+'.png';
@@ -70,6 +83,7 @@ var appCtrl=function($scope,$http){
 		});
 	};
 	$scope.checkCity=function(city){
+		$scope.notSelected=false;
 		if(city.selected){
 			getWeather(city);
 			city.show=true;
@@ -109,6 +123,75 @@ var appCtrl=function($scope,$http){
 		else{
 			stopTimer(city);
 		}
+	};
+	$scope.select={
+		opt:{id:1,name:'A-Z'},
+		opts:[
+			{id:1,name:'A-Z'},
+			{id:2,name:'Z-A'}
+		]
+	};
+	/*
+		Insertion sort
+	*/
+	$scope.sortAZ=function(arrayToSort){
+		var arrNum=arrayToSort.length,i,j,tmp,arrIndex;
+		for(i=0;i<arrNum;i++){
+			tmp=arrayToSort[i];
+			arrIndex=$scope.cities.indexOf(tmp);
+			$scope.cities.splice(arrIndex,1);
+			for(j=i-1;j>-1&&(arrayToSort[j].sort>tmp.sort);j--){
+				arrayToSort[j+1]=arrayToSort[j];
+			}
+			arrayToSort[j+1]=tmp;
+		}
+		$scope.cities=arrayToSort.concat($scope.cities);
+	};
+	/*
+		Insertion sort
+	*/
+	$scope.sortZA=function(arrayToSort){
+		var arrNum=arrayToSort.length,i,j,tmp,arrIndex;
+		for(i=0;i<arrNum;i++){
+			tmp=arrayToSort[i];
+			arrIndex=$scope.cities.indexOf(tmp);
+			$scope.cities.splice(arrIndex,1);
+			for(j=i-1;j>-1&&(arrayToSort[j].sort<tmp.sort);j--){
+				arrayToSort[j+1]=arrayToSort[j];
+			}
+			arrayToSort[j+1]=tmp;
+		}
+		$scope.cities=arrayToSort.concat($scope.cities);
+	};
+	$scope.sortF=function(sortType){
+		var sortArray=[];
+		angular.forEach($scope.cities,function(city){
+			if(city.selected){
+				sortArray.push(city);
+			}
+		});
+		switch(sortType){
+			case 1:
+				$scope.sortAZ(sortArray);
+			break;
+			case 2:
+				$scope.sortZA(sortArray);
+		}
+	};
+	$scope.checkSelect=function(){
+		var sortType=$scope.select.opt.id;
+		$scope.notSelected=true;
+		angular.forEach($scope.cities,function(city){
+			if($scope.notSelected){
+				if(city.selected){
+					$scope.notSelected=false;
+					$scope.sortF(sortType);
+				}
+			}
+		});
+	};
+	$scope.hideInfo=function(){
+		$scope.notSelected=false;
 	};
 };
 app.controller('appCtrl',appCtrl);
