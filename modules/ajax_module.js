@@ -78,7 +78,7 @@ var appCtrl=function($scope,$http){
 			city.show=false;
 		}
 	};
-	$scope.test=function(refVal){
+	$scope.setDefVal=function(refVal){
 		if(refVal===null){
 			this.city.refresh=1;
 		}
