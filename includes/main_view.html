@@ -47,7 +47,7 @@
 					<hr>
 				</div>
 				<div class="center_txt">
-					<p>Odśwież co:<input type="number" min="1" max="60" ng-model="city.refresh" ng-disabled="!city.show" ng-blur="setDefVal(city.refresh)">sekund[<input type="checkbox" ng-disabled="!city.show" ng-model ="refresh">]</p>
+					<p>Odśwież co:<input type="number" min="1" max="60" ng-model="city.refresh_time" ng-disabled="!city.show" ng-blur="setDefVal(city.refresh_time)">sekund[<input type="checkbox" ng-disabled="!city.show" ng-model ="city.refresh" ng-change="refWeather(city)">]</p>
 				</div>
 			</td>
 		</tr>

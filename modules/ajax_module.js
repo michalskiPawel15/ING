@@ -15,8 +15,10 @@ var appCtrl=function($scope,$http){
 		//debug(response.data,'---Success---');
 		$scope.cities=response.data;
 		angular.forEach($scope.cities,function(city){
+			city.selected=false;
 			city.show=false;
-			city.refresh=0;
+			city.refresh=false;
+			city.refresh_time=0;
 		});
 	},function(response){
 		//Error response
@@ -30,7 +32,7 @@ var appCtrl=function($scope,$http){
 		var weatherUrl='http://api.openweathermap.org/data/2.5/weather?id='+city.id+'&units=metric&lang=pl&APPID='+appId;
 		$http.get(weatherUrl).then(function(response){
 			//Success response
-			// debug(response,'---response.data---');
+			//debug(response,'---response.data---');
 			city.temp=response.data.main.temp;
 			city.desc=response.data.weather[0].description;
 			city.ico='http://openweathermap.org/img/w/'+response.data.weather[0].icon+'.png';
@@ -60,7 +62,7 @@ var appCtrl=function($scope,$http){
 			if($scope.allCheck){
 				getWeather(city);
 				city.show=true;
-				city.refresh=setPrevVal(city.refresh);
+				city.refresh_time=setPrevVal(city.refresh_time);
 			}
 			else{
 				city.show=false;
@@ -71,19 +73,41 @@ var appCtrl=function($scope,$http){
 		if(city.selected){
 			getWeather(city);
 			city.show=true;
-			city.refresh=setPrevVal(city.refresh);
+			city.refresh_time=setPrevVal(city.refresh_time);
 		}
 		else{
 			$scope.allCheck=false;
 			city.show=false;
+			city.refresh=false;
 		}
 	};
 	$scope.setDefVal=function(refVal){
 		if(refVal===null){
-			this.city.refresh=1;
+			this.city.refresh_time=1;
 		}
 		else if(typeof(refVal)==="undefined"){
-			this.city.refresh=60;
+			this.city.refresh_time=60;
+		}
+	};
+	var startTimer=function(city){
+		city.timerId=setInterval(function(){
+			if(city.selected){
+				getWeather(city);
+			}
+			else{
+				stopTimer(city);
+			}
+		},(city.refresh_time*1000));
+	};
+	var stopTimer=function(city){
+		clearInterval(city.timerId);
+	};
+	$scope.refWeather=function(city){
+		if(city.refresh===true){
+			startTimer(city);
+		}
+		else{
+			stopTimer(city);
 		}
 	};
 };
