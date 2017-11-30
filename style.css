@@ -3,6 +3,13 @@
 	padding:0;
 	font-family:Helvetica,Arial,Sans-serif;
 }
+body{
+	background:#000000;
+}
+table{
+	margin:0 auto;
+	width:100%;
+}
 table,th,td{
 	border:1px solid #cfcfd0;
 	border-collapse:collapse;
@@ -10,6 +17,8 @@ table,th,td{
 }
 table th{
 	background-color:#ff6200;
+}
+table th div p{
 	color:#ffffff;
 }
 table tr:nth-child(odd){
@@ -17,6 +26,10 @@ table tr:nth-child(odd){
 }
 table tr:nth-child(even){
 	background-color:#ffffff;
+}
+.app_title p{
+	font-size:30px;
+	font-weight:bold;
 }
 .w_info{
 	font-weight:bold;
@@ -26,4 +39,7 @@ table tr:nth-child(even){
 	width:50px;
 	height:auto;
 	margin:0 auto;
+}
+.center_txt p{
+	text-align:center;
 }

@@ -1,30 +1,53 @@
 <div ng-controller="appCtrl">
-	<h1>Pogoda</h1>
 	<table>
 		<tr>
+			<th colspan="3">
+				<div class="app_title">
+					<p>Pogoda</p>
+				</div>
+			</th>
+		</tr>
+		<tr>
 			<th>
-				<p>Miasto</p>
+				<div>
+					<p>Miasto</p>
+				</div>
 			</th>
 			<th>
-				<p>Sprawdź</p>
-				<p>(wszystkie:<input type="checkbox" ng-model="allCheck" ng-change="checkAll()">)</p>
+				<div>
+					<p>Sprawdź</p>
+					<p>(wszystkie:[<input type="checkbox" ng-model="allCheck" ng-change="checkAll()">])</p>
+				</div>
 			</th>
 			<th>
-				<p>Pogoda</p>
+				<div>
+					<p>Pogoda</p>
+				</div>
 			</th>
 		</tr>
 		<tr ng-repeat="city in cities">
 			<td>
-				<p>{{city.name}}</p>
+				<div class="center_txt">
+					<p>{{city.name}}</p>
+				</div>
 			</td>
 			<td>
-				<input type="checkbox" ng-model="city.selected" ng-change="checkCity(city)">
+				<div class="center_txt">
+					<p>Sprawdź to miasto:[<input type="checkbox" ng-model="city.selected" ng-change="checkCity(city)">]</p>
+				</div>
 			</td>
 			<td>
-				<p>Temperatura:<span ng-show="city.show" class="w_info">{{city.temp}}</span><span ng-show="!city.show" class="w_info">(sprawdź)</span>ºC</p>
+				<div>
+					<p>Temperatura:<span ng-show="city.show" class="w_info">{{city.temp}}</span><span ng-show="!city.show" class="w_info">(sprawdź)</span>ºC</p>
+					<hr>
+				</div>
 				<div>
 					<p>Stan:<span ng-show="city.show" class="w_info">{{city.desc}}</span><span ng-show="!city.show" class="w_info">(sprawdź)</span></p>
 					<img ng-src="{{city.show?city.ico:'empty.png'}}" class="w_info_img">
+					<hr>
+				</div>
+				<div class="center_txt">
+					<p>Odśwież co:<input type="number" min="1" max="60" ng-model="city.refresh" ng-disabled="!city.show" ng-blur="setDefVal(city.refresh)">sekund[<input type="checkbox" ng-disabled="!city.show" ng-model ="refresh">]</p>
 				</div>
 			</td>
 		</tr>
