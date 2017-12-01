@@ -7,7 +7,7 @@ Weather App
 ```
 https://github.com/michalskiPawel15/WeatherApp.git
 ```
-3.Go to the directory and type:
+3.Go to the directory ```your/directory/WeatherApp``` and type:
 ```
 npm start
 ```
